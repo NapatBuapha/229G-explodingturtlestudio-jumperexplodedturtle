@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
             if(jumpValue <= maxJumpValue)
             {
                 jumpTarget.position = new Vector2 (jumpTarget.position.x + jumpChargeRate * Time.deltaTime * playerfacing ,jumpTarget.position.y);
-                jumpValue += jumpChargeRate / 2 * Time.deltaTime; 
+                jumpValue += jumpChargeRate * Time.deltaTime; 
             }
         }
 
