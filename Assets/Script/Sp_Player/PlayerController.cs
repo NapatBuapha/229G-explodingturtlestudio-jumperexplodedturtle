@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             if(jumpValue <= maxJumpValue)
             {
-                jumpTarget.position = new Vector2 (jumpTarget.position.x + jumpChargeRate * Time.deltaTime * playerfacing ,jumpTarget.position.y);
+                jumpTarget.position = new Vector2 (jumpTarget.position.x + jumpChargeRate * Time.deltaTime * playerfacing * 1.5f  ,jumpTarget.position.y);
                 jumpValue += jumpChargeRate * Time.deltaTime; 
             }
         }
@@ -85,13 +85,14 @@ public class PlayerController : MonoBehaviour
             rb.sharedMaterial = normalMat;
         }
 
+
         
 
         //GroundCheck
 
         hit = Physics2D.Raycast(groundCheckRef.position,-Vector2.up,checkingDistance);
         
-        if(hit)
+        if(hit.collider.CompareTag("Floor"))
         {
             rb.sharedMaterial = normalMat;
             isTouchGround = true;
