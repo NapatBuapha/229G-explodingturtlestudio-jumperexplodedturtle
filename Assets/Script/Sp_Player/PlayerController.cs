@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheckRef;
     private RaycastHit2D hit;
     private bool isCharging;
+    private bool isJumping;
     [SerializeField] SpriteRenderer spriteRenderer;
 
     
@@ -74,8 +75,10 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.Space) && isCharging)
         {
+            isJumping = true;
             isCharging = false;
             jump();
+            Invoke("EndJump",0.5f);
         }
 
         if(jumpValue > 0)
@@ -98,6 +101,12 @@ public class PlayerController : MonoBehaviour
         {
                 rb.sharedMaterial = normalMat;
                 isTouchGround = true;
+
+                if(!isJumping && !isCharging)
+        {
+                jumpTarget.position = transform.position;
+                ResetJump();
+        }  
         }
         else
         {
@@ -107,13 +116,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void EndJump()
     {
-        if(collision.collider.CompareTag("Floor"))
-        {
-            jumpTarget.position = transform.position;
-            ResetJump();
-        }        
+        isJumping = false;
     }
 
     void ResetJump()
