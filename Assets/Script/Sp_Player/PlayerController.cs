@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform jumpTarget;
     private float playerfacing;
 
+    [SerializeField] private LayerMask groundLayers;
+
     //Object refference
     [SerializeField] private Transform groundCheckRef;
     private RaycastHit2D hit;
@@ -90,14 +92,12 @@ public class PlayerController : MonoBehaviour
 
         //GroundCheck
 
-        hit = Physics2D.Raycast(groundCheckRef.position,-Vector2.up,checkingDistance);
+        hit = Physics2D.Raycast(groundCheckRef.position,-Vector2.up,checkingDistance,groundLayers);
         
-        if(hit.collider.CompareTag("Floor"))
+        if(hit)
         {
-            rb.sharedMaterial = normalMat;
-            isTouchGround = true;
-
-
+                rb.sharedMaterial = normalMat;
+                isTouchGround = true;
         }
         else
         {

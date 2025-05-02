@@ -5,6 +5,12 @@ using UnityEngine;
 public class CameraTransition : MonoBehaviour
 {
     [SerializeField] private GameObject displayCamera;
+    DeadCheck deadCheck;
+
+    void Start()
+    {
+        deadCheck = GameObject.Find("DeadCheck").GetComponent<DeadCheck>();
+    }
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -16,7 +22,7 @@ public class CameraTransition : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D col)
     {
-            if(col.CompareTag("Player"))
+            if(col.CompareTag("Player") && !deadCheck.isPlayerDead)
         {
             displayCamera.SetActive(false);
         }

@@ -7,8 +7,10 @@ public class PlayerExploding : MonoBehaviour
     public int detonationCount;
     [SerializeField] private GameObject playerObject;
     [SerializeField] private GameObject gameoverUI;
+    [SerializeField] private DeadCheck deadCheck;
     void Start()
     {
+        deadCheck = GameObject.Find("DeadCheck").GetComponent<DeadCheck>();
         detonationCount = 3;
     }
 
@@ -18,6 +20,7 @@ public class PlayerExploding : MonoBehaviour
         if(detonationCount <= 0)
         {
             gameoverUI.SetActive(true);
+            deadCheck.isPlayerDead = true;
             Destroy(playerObject);
         }
 
